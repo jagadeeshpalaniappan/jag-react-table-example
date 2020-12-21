@@ -37,6 +37,12 @@ const Styles = styled.div`
     }
   }
 
+  .search {
+    width: 300px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
   .pagination {
     padding: 0.5rem;
   }

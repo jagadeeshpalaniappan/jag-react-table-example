@@ -5,11 +5,13 @@ import {
   usePagination,
   useSortBy,
   useFilters,
+  useGlobalFilter,
+  useGroupBy,
   useExpanded,
   useRowSelect,
 } from "react-table";
 
-import { tableData, tableData1 } from "../data";
+import { tableData } from "../data";
 import customFilterTypes from "../filters/customFilterTypes";
 import NumberRangeColumnFilter from "../filters/NumberRangeColumnFilter";
 import SelectColumnFilter from "../filters/SelectColumnFilter";
@@ -17,6 +19,7 @@ import DefaultColumnFilter from "../filters/DefaultColumnFilter";
 import EditableCell from "../components/EditableCell";
 import { useCheckboxSelection } from "../components/CheckboxSelection";
 import Pagination from "../components/Pagination";
+import GlobalSearchFilter from "../components/GlobalSearchFilter";
 
 import Styles from "../Styles";
 
@@ -52,7 +55,18 @@ function Table({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize, sortBy, expanded, filters, selectedRowIds },
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    state: {
+      pageIndex,
+      pageSize,
+      sortBy,
+      groupBy,
+      expanded,
+      filters,
+      selectedRowIds,
+      globalFilter,
+    },
   } = useTable(
     {
       columns,
@@ -69,6 +83,8 @@ function Table({
       disableMultiSort: true,
     },
     useFilters,
+    useGlobalFilter,
+    useGroupBy,
     useSortBy,
     useExpanded,
     usePagination,
@@ -79,7 +95,12 @@ function Table({
 
   // Render the UI for your table
   return (
-    <>
+    <div>
+      <GlobalSearchFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -87,6 +108,13 @@ function Table({
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()}>
                   <div>
+                    {column.canGroupBy ? (
+                      // If the column can be grouped, let's add a toggle
+                      <span {...column.getGroupByToggleProps()}>
+                        {column.isGrouped ? "🛑 " : "👊 "}
+                      </span>
+                    ) : null}
+
                     <span {...column.getSortByToggleProps()}>
                       {column.render("Header")}
                       {/* Add a sort direction indicator */}
@@ -112,7 +140,23 @@ function Table({
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>
-                      {cell.render("Cell", { editable: true })}
+                      {cell.isGrouped ? (
+                        // If it's a grouped cell, add an expander and row count
+                        <>
+                          <span {...row.getToggleRowExpandedProps()}>
+                            {row.isExpanded ? "👇" : "👉"}
+                          </span>{" "}
+                          {cell.render("Cell", { editable: false })} (
+                          {row.subRows.length})
+                        </>
+                      ) : cell.isAggregated ? (
+                        // If the cell is aggregated, use the Aggregated
+                        // renderer for cell
+                        cell.render("Aggregated")
+                      ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                        // Otherwise, just render the regular cell
+                        cell.render("Cell", { editable: true })
+                      )}
                     </td>
                   );
                 })}
@@ -147,6 +191,7 @@ function Table({
               canNextPage,
               canPreviousPage,
               sortBy,
+              groupBy,
               expanded: expanded,
               filters,
               selectedRowIds: selectedRowIds,
@@ -156,7 +201,7 @@ function Table({
           )}
         </code>
       </pre>
-    </>
+    </div>
   );
 }
 
@@ -198,21 +243,28 @@ const tableCols = [
     Header: "Name",
     accessor: "name",
   },
+
   {
     Header: "Prop1",
     accessor: "prop1",
     Filter: NumberRangeColumnFilter,
     filter: "between",
   },
+
   {
-    Header: "Prop2",
-    accessor: "prop2",
-  },
-  {
-    Header: "Prop3",
-    accessor: "prop3",
-    Filter: SelectColumnFilter,
-    filter: "includes",
+    Header: "Prop2 & Prop3",
+    columns: [
+      {
+        Header: "Prop2",
+        accessor: "prop2",
+      },
+      {
+        Header: "Prop3",
+        accessor: "prop3",
+        Filter: SelectColumnFilter,
+        filter: "includes",
+      },
+    ],
   },
 ];
 

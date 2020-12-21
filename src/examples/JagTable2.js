@@ -27,10 +27,14 @@ const defaultColumnConfig = () => ({
 });
 
 // Be sure to pass our updateMyData and the skipReset option
-function Table({ columns, data, updateMyData, skipReset }) {
-  const filterTypes = React.useMemo(customFilterTypes, []);
-  const defaultColumn = React.useMemo(defaultColumnConfig, []);
-
+function Table({
+  columns,
+  data,
+  updateMyData,
+  skipReset,
+  filterTypes,
+  defaultColumn,
+}) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -248,6 +252,8 @@ const tableCols = [
 
 function App() {
   const columns = React.useMemo(() => tableCols, []);
+  const filterTypes = React.useMemo(customFilterTypes, []);
+  const defaultColumn = React.useMemo(defaultColumnConfig, []);
 
   console.log({ tableData });
   const [data, setData] = React.useState(() => tableData);
@@ -299,6 +305,8 @@ function App() {
         data={data}
         updateMyData={updateMyData}
         skipReset={skipResetRef.current}
+        filterTypes={filterTypes}
+        defaultColumn={defaultColumn}
       />
     </Styles>
   );
