@@ -14,7 +14,7 @@ const StockList = () => {
   const loadInitialStocks = useCallback(async () => {
     // const { ok } = response // BAD, DO NOT DO THIS
     const apiStocks = await get("/api/v1/stocks");
-    console.log("loadInitialStocks:get:"), apiStocks;
+    console.log("loadInitialStocks:get:", apiStocks);
     const stocks = getStockTableData(apiStocks.data);
     if (response.ok) setStocks(stocks);
   }, [get, response]);
