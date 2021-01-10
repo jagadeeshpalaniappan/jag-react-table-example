@@ -43,6 +43,9 @@ function ResearchTable() {
 
   return (
     <div style={{ margin: 20 }}>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <button onClick={resetData}>Reset Data</button>
+      </div>
       <Table
         data={data}
         updateMyData={updateMyData}
