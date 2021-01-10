@@ -17,7 +17,6 @@ function App() {
   return (
     <div className="App">
       <JagTable5 />
-      <JagTable4 />
     </div>
   );
 }

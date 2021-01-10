@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -15,20 +15,27 @@ const IndeterminateCheckbox = React.forwardRef(
 
 export default function ShowHideColumns({
   allColumns,
-  getToggleHideAllColumnsProps
+  getToggleHideAllColumnsProps,
 }) {
   return (
     <div>
       <h4 style={{ marginTop: 20, marginBottom: 10 }}>Show/Hide Columns:</h4>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          backgroundColor: "#fff",
+          padding: "10px 0",
+        }}
+      >
         <div style={{ marginLeft: 10 }}>
           <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} /> Toggle
           All
         </div>
-        {allColumns.map(column => (
+        {allColumns.map((column) => (
           <div key={column.id} style={{ marginLeft: 10 }}>
             <label>
-              <input type="checkbox" {...column.getToggleHiddenProps()} />{' '}
+              <input type="checkbox" {...column.getToggleHiddenProps()} />{" "}
               {column.Header}
             </label>
           </div>
