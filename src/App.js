@@ -7,13 +7,16 @@ import JagTable2 from "./examples/JagTable2"; // Basic + GroupBy
 import JagTable3 from "./examples/JagTable3"; // Basic + GroupBy + MultiColumn
 import JagTable4 from "./examples/JagTable4"; // Basic + GroupBy + MultiColumn + GlobalSearch
 
+//
+import JagTable5 from "./examples/JagTable5"; // CLEANED JAG VERSION)
+
 // import ResearchTable from "./stocks/ResearchTable";
-import StockApp from "./stocks/StockApp";
+// import StockApp from "./stocks/StockApp";
 
 function App() {
   return (
     <div className="App">
-      <StockApp />
+      <JagTable5 />
     </div>
   );
 }
