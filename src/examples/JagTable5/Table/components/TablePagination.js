@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function Pagination({
   gotoPage,
@@ -10,47 +10,47 @@ export default function Pagination({
   pageIndex,
   pageOptions,
   pageSize,
-  setPageSize
+  setPageSize,
 }) {
   return (
     <div style={{ padding: 10 }}>
       <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-        {'<<'}
-      </button>{' '}
+        {"<<"}
+      </button>{" "}
       <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-        {'<'}
-      </button>{' '}
+        {"<"}
+      </button>{" "}
       <button onClick={() => nextPage()} disabled={!canNextPage}>
-        {'>'}
-      </button>{' '}
+        {">"}
+      </button>{" "}
       <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-        {'>>'}
-      </button>{' '}
+        {">>"}
+      </button>{" "}
       <span>
-        Page{' '}
+        Page{" "}
         <strong>
           {pageIndex + 1} of {pageOptions.length}
-        </strong>{' '}
+        </strong>{" "}
       </span>
       <span>
-        | Go to page:{' '}
+        | Go to page:{" "}
         <input
           type="number"
           defaultValue={pageIndex + 1}
-          onChange={e => {
+          onChange={(e) => {
             const page = e.target.value ? Number(e.target.value) - 1 : 0;
             gotoPage(page);
           }}
-          style={{ width: '100px' }}
+          style={{ width: "100px" }}
         />
-      </span>{' '}
+      </span>{" "}
       <select
         value={pageSize}
-        onChange={e => {
+        onChange={(e) => {
           setPageSize(Number(e.target.value));
         }}
       >
-        {[10, 20, 30, 40, 50].map(pageSize => (
+        {[5, 10, 20, 30, 40, 50].map((pageSize) => (
           <option key={pageSize} value={pageSize}>
             Show {pageSize}
           </option>
