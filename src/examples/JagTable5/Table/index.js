@@ -9,8 +9,9 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import TableDebugVals from "./components/TableDebugVals";
 import Table from "./components/Table";
+import TableAppliedFilters from "./components/TableAppliedFilters";
+import TableDebugVals from "./components/TableDebugVals";
 import TablePagination from "./components/TablePagination";
 import TableSearchInput from "./components/TableSearchInput";
 import TableShowHideColumns from "./components/TableShowHideColumns";
@@ -18,7 +19,6 @@ import columns from "./options/columns";
 import defaultColumn from "./options/defaultColumn";
 import filterTypes from "./options/filterTypes";
 import useCheckboxSelection from "./plugins/useCheckboxSelection";
-import TableAppliedFilters from "./components/TableAppliedFilters";
 
 // Be sure to pass our updateMyData and the skipReset option
 function TableIndex({ data, updateMyData, skipReset }) {
