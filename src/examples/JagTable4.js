@@ -270,6 +270,7 @@ const tableCols = [
 
 function App() {
   const columns = React.useMemo(() => tableCols, []);
+  // const filterTypes = React.useMemo(customFilterTypes, []);
   const filterTypes = React.useMemo(customFilterTypes, []);
   const defaultColumn = React.useMemo(defaultColumnConfig, []);
 
@@ -314,6 +315,8 @@ function App() {
     skipResetRef.current = true;
     setData(originalData);
   };
+
+  console.log({ filterTypes });
 
   return (
     <Styles>
