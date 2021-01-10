@@ -13,13 +13,13 @@ const columns = [
     accessor: "name",
   },
   {
-    Header: "noCell1",
+    Header: "NoCell1",
     accessor: "noCell1",
     Filter: NumberRangeColumnFilter,
     filter: "between",
   },
   {
-    Header: "(noCell2) noCell3",
+    Header: "(noCell2) NoCell3",
     accessor: "noCell3",
     Filter: NumberRangeColumnFilter,
     filter: "between",
@@ -33,13 +33,13 @@ const columns = [
     ),
   },
   {
-    Header: "ddCell1",
+    Header: "DropdownCell1",
     accessor: "ddCell1",
     Filter: SelectColumnFilter,
     filter: "includes",
   },
   {
-    Header: "ddCell2",
+    Header: "DropdownCell2",
     accessor: "ddCell2",
     Filter: SelectColumnFilter,
     filter: "includes",
